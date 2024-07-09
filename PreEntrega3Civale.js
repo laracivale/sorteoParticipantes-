@@ -14,6 +14,7 @@ function registro(){
         document.body.innerHTML = `<h2>Lo siento :(</h2>
                                    <p>Ya se ha registrado un participante con este DNI</p>;
                                    <a href="index.html">Volver</a>`;
+        return; 
     }
 
     class DatosParticipantes { 
@@ -31,9 +32,12 @@ function registro(){
     console.log (listaParticipantes); 
 
     let participantesStringify = JSON.stringify(listaParticipantes); 
-    localStorage.setItem("listaParticipantes", participantesStringify); 
+    sessionStorage.setItem("listaParticipantes", participantesStringify); 
 
-    if(listaParticipantes.length == 10){
+    let recuperoLista = sessionStorage.getItem("listaParticipantes");
+    let lista = JSON.parse(recuperoLista); 
+
+    if(lista.length == 10){
         btnRegistro.remove(); 
         crearBtnSortear(); 
     }
