@@ -13,7 +13,7 @@ function registro(){
     if (dniDuplicado) {
         document.body.innerHTML = `<h2>Lo siento :(</h2>
                                    <p>Ya se ha registrado un participante con este DNI</p>;
-                                   <a href="PreEntrega3Civale.html">Volver</a>`;
+                                   <a href="index.html">Volver</a>`;
     }
 
     class DatosParticipantes { 
