@@ -1,19 +1,32 @@
 //Programa para que cada persona ingrese sus datos y elegir un ganador random entre ellos 
 
+let apiKey = "c7ef50d654279538dac0d2efd4a5bcfb"; 
+
+fetch(`http://api.openweathermap.org/geo/1.0/direct?q=BuenosAires&appid=${apiKey}`)
+  .then((response) => response.json())
+  .then(data => console.log(data));   
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?lat=-34.6075682&lon=-58.4370894&appid=${apiKey}&lang=es&units=metric`)
+  .then((response) => response.json())
+  .then(data => console.log(data));
+
 let listaParticipantes = [];
 
 function registro(){
     let nombre = document.getElementById("nombreParticipante").value; 
     let apellido = document.getElementById("apellidoParticipante").value;
     let dni = document.getElementById("dniParticipante").value;  
-    let telefono = document.getElementById("telefonoParticipante").value;
+    let telefono = document.getElementById("telefonoParticipante").value; 
 
     let dniDuplicado = listaParticipantes.find(objParticipante => objParticipante.dni == dni);
-
+   
     if (dniDuplicado) {
-        document.body.innerHTML = `<h2>Lo siento :(</h2>
-                                   <p>Ya se ha registrado un participante con este DNI</p>;
-                                   <a href="index.html">Volver</a>`;
+        Swal.fire({
+            title: 'Error!',
+            text: 'Este usuario ya esta participando',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
         return; 
     }
 
@@ -26,6 +39,16 @@ function registro(){
         }
     } 
        
+    if (!nombre || !apellido || !dni || !telefono) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Hay datos sin completar',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
+        return; 
+    }
+
     let nuevoParticipante = new DatosParticipantes (nombre, apellido, dni, telefono); 
     listaParticipantes.push (nuevoParticipante);  
 
